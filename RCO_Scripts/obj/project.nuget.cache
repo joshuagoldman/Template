@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "VHfJRV++mDF/bGqLxwS+Y/StVd6nRXc4d5lrKvQioWEI/JlF0ljZjyA+Y+SFTaCF/uOoaA0NQdXKnr38tSljCw==",
+  "dgSpecHash": "PGUMJpyN1W3VGcZed6tAjnaSRkDaLu/QdUCV6Ipn+E7iMZy30jfax8X1ipHOLabLSjcxtqFs005/jfrAk0yn7g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jogo\\Documents\\RCO_Scripts\\RCO_Scripts.fsproj",
+  "projectFilePath": "/home/joshua/Gitrepos/Template_Web_App/RCO_Scripts/RCO_Scripts.fsproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jogo\\.nuget\\packages\\fsharp.core\\4.7.2\\fsharp.core.4.7.2.nupkg.sha512"
+    "/home/joshua/.nuget/packages/fsharp.core/4.7.2/fsharp.core.4.7.2.nupkg.sha512"
   ],
   "logs": []
 }

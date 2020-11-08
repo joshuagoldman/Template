@@ -108,24 +108,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jogo\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/home/joshua/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jogo\\Documents\\RCO_Scripts\\RCO_Scripts.fsproj",
+      "projectUniqueName": "/home/joshua/Gitrepos/Template_Web_App/RCO_Scripts/RCO_Scripts.fsproj",
       "projectName": "WriteFile",
-      "projectPath": "C:\\Users\\jogo\\Documents\\RCO_Scripts\\RCO_Scripts.fsproj",
-      "packagesPath": "C:\\Users\\jogo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jogo\\Documents\\RCO_Scripts\\obj\\",
+      "projectPath": "/home/joshua/Gitrepos/Template_Web_App/RCO_Scripts/RCO_Scripts.fsproj",
+      "packagesPath": "/home/joshua/.nuget/packages/",
+      "outputPath": "/home/joshua/Gitrepos/Template_Web_App/RCO_Scripts/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\jogo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/joshua/Gitrepos/Template_Web_App/NuGet.Config",
+        "/home/joshua/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -163,7 +159,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
       }
     }
   }

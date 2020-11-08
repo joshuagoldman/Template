@@ -84,9 +84,20 @@ let write2File ( dispatch : Types.Msg -> unit ) content popupPosition = async {
             checkingProcessPopupMsg popupPosition
         )
 
+    let path_2_executable = "cd server;scripts/WriteFile"
+    let download_rate = "3"
+
+    let shellcommands = 
+        String.Format (
+            "{0};{1};{2}",
+            path_2_executable,
+            download_rate,
+            content
+        )
+
     popupInfoStr |> dispatch
 
-    fData.append("shellCommand", content)
+    fData.append("shellCommand", shellcommands)
 
     let request =
         Async.FromContinuations <| fun (resolve,_,_) ->
