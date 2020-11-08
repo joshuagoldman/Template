@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RCO_Scripts": {
+      "commandName": "Project"
+    },
+    "WriteFile": {
+      "commandName": "Executable"
+    }
+  }
+}
