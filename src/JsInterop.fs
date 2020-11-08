@@ -43,6 +43,18 @@ module ProgressSocket =
     [<Import("emit", "./JsInterop/Socket.js")>] 
     let emit (eventName: string) (message: obj) (socketObj: IWebsocket) : IWebsocket = jsNative
 
+[<Erase>]
+module NetSocket =
+
+    [<Import("createSocket", "./JsInterop/NetSocket.js")>] 
+    let connect (url : string) (port : int) : SocketResponse = jsNative
+
+    [<Import("addEventListener", "./JsInterop/NetSocket.js")>] 
+    let listen (handler: obj -> unit) (socket: IWebsocket) : IWebsocket = jsNative
+
+    [<Import("emit", "./JsInterop/NetSocket.js")>] 
+    let emit (message: obj) (socketObj: IWebsocket) : IWebsocket = jsNative
+
 module Cmd =
     let fromAsyncSeveral ( operation : Async<'msg[]> ) : Cmd<'msg> =
         let delayedCmd ( dispatch: 'msg -> unit ) : unit =

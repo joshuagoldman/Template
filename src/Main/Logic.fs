@@ -65,3 +65,96 @@ let killPopupMsg =
     (
         Main.Types.Popup_Msg
     )
+
+let contentChanged ( model : Main.Types.Model ) new_content =
+    let new_model = {model with CurrContent = new_content |> Yes_Defined}
+
+    new_model
+
+let write2File ( dispatch : Types.Msg -> unit ) content popupPosition = async {
+
+    let fData = Browser.FormData.Create()
+
+    let startSaveMsg = "Starting save process..."
+
+    let popupInfoStr =
+        0.0 |>
+        (
+            Popup.View.getPopupMsgProgress startSaveMsg >>
+            checkingProcessPopupMsg popupPosition
+        )
+
+    popupInfoStr |> dispatch
+
+    fData.append("shellCommand", content)
+
+    let request =
+        Async.FromContinuations <| fun (resolve,_,_) ->
+
+            let xhr = Browser.XMLHttpRequest.Create()
+            xhr.``open``(method = "POST", url = "http://localhost:3001/shellcommand")
+            xhr.timeout <- 10000.0
+
+            let socketResponse = NetSocket.connect "localhost" 300
+    
+            match socketResponse.ErrorMessage with
+            | None  ->
+                socketResponse.Socket.Value
+                |> NetSocket.listen (fun scktMsg ->
+                    let eventResult = (scktMsg :?> string)
+
+                    match eventResult.ToLower().Contains("Finished") with
+                    | true ->
+                        let msg = "loading file (" + eventResult + "% loaded)"
+
+                        let popupInfoStr =
+                            eventResult |>
+                            (
+                                float >>
+                                Popup.View.getPopupMsgProgress msg >>
+                                checkingProcessPopupMsg popupPosition >>
+                                dispatch
+                            )
+
+                        popupInfoStr
+                    | _ ->
+                        resolve
+                            {
+                                Status = 404
+                                Msg = "Finished!"
+                            }
+                        
+                            
+                    )
+                |> ignore
+
+            | Some error ->
+
+                resolve
+                    {
+                        Status = 404
+                        Msg = error
+                    }
+
+            xhr.ontimeout <- fun _ ->
+                let error =
+                    "Connection timed out."
+
+                resolve
+                    {
+                        Status = 404
+                        Msg = error
+                    }
+
+            xhr.send(fData) |> fun  _ -> ()
+
+    let! response = request
+
+    let popup_msg = errorPopupMsg
+                            dispatch
+                            killPopupMsg
+                            popupPosition
+                            response.Msg
+                        
+    popup_msg |> dispatch
+}

@@ -14,7 +14,10 @@ importAll "../sass/main.sass"
 
 let root (model: Model) dispatch =
     Html.div[
-        Main.View.root model.Main (Types.MainMsg >> dispatch)
+        prop.children[
+            Main.View.root model.Main (Types.MainMsg >> dispatch)
+            Popup.View.popup_view model.Popup
+        ]
     ]
 
 open Elmish.React

@@ -7,11 +7,12 @@ open Browser.Dom
 open Types
 open JsInterop
 open Global.Types
+open Fable.Core.JsInterop
 
 
 let init =
     {
-        Name = ""
+       CurrContent = Not_Defined
     }
 
 
@@ -33,6 +34,13 @@ let update msg (model:Model) : Model * GlobalMsg * Cmd<Msg> =
             |> Global.Types.Popup_Msg_Global
 
         model, msg, []
+    | Change_File_Content ev ->
+        let cntnt = ev.target?value |> string
+        let new_model = Logic.contentChanged model cntnt
+
+        new_model, Global.Types.MsgNone, []
+    | Write_To_File dispatch ->
+        Logic.write2File
         
     
 

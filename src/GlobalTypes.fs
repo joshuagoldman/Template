@@ -76,11 +76,6 @@ type HttpResponse =
     | TimedOut of string
     | Success of Browser.XMLHttpRequest
 
-type MessageType = {
-    Progress : float
-    Remaining : int
-}
-
 type FinishedType = {
     Status : int
     Msg : string
