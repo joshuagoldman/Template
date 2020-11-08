@@ -1,0 +1,8 @@
+/home/joshua/Gitrepos/Template_Web_App/src/bin/Debug/netstandard2.0/Template.deps.json
+/home/joshua/Gitrepos/Template_Web_App/src/bin/Debug/netstandard2.0/Template.dll
+/home/joshua/Gitrepos/Template_Web_App/src/bin/Debug/netstandard2.0/Template.pdb
+/home/joshua/Gitrepos/Template_Web_App/src/obj/Debug/netstandard2.0/Template.fsprojAssemblyReference.cache
+/home/joshua/Gitrepos/Template_Web_App/src/obj/Debug/netstandard2.0/Template.AssemblyInfoInputs.cache
+/home/joshua/Gitrepos/Template_Web_App/src/obj/Debug/netstandard2.0/Template.AssemblyInfo.fs
+/home/joshua/Gitrepos/Template_Web_App/src/obj/Debug/netstandard2.0/Template.dll
+/home/joshua/Gitrepos/Template_Web_App/src/obj/Debug/netstandard2.0/Template.pdb

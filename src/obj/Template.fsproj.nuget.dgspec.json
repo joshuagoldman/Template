@@ -1,0 +1,98 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/joshua/Gitrepos/Template_Web_App/src/Template.fsproj": {}
+  },
+  "projects": {
+    "/home/joshua/Gitrepos/Template_Web_App/src/Template.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/joshua/Gitrepos/Template_Web_App/src/Template.fsproj",
+        "projectName": "Template",
+        "projectPath": "/home/joshua/Gitrepos/Template_Web_App/src/Template.fsproj",
+        "packagesPath": "/home/joshua/.nuget/packages/",
+        "outputPath": "/home/joshua/Gitrepos/Template_Web_App/src/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/joshua/Gitrepos/Template_Web_App/NuGet.Config",
+          "/home/joshua/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Elmish": {
+              "target": "Package",
+              "version": "[3.1.0, )",
+              "generatePathProperty": true
+            },
+            "FSharp.Core": {
+              "target": "Package",
+              "version": "[4.7.2, )",
+              "generatePathProperty": true
+            },
+            "Fable.Elmish.Browser": {
+              "target": "Package",
+              "version": "[3.0.4, )",
+              "generatePathProperty": true
+            },
+            "Fable.Elmish.React": {
+              "target": "Package",
+              "version": "[3.0.1, )",
+              "generatePathProperty": true
+            },
+            "Fable.Import.Browser": {
+              "target": "Package",
+              "version": "[1.4.0, )",
+              "generatePathProperty": true
+            },
+            "Fable.React": {
+              "target": "Package",
+              "version": "[7.0.1, )",
+              "generatePathProperty": true
+            },
+            "Feliz": {
+              "target": "Package",
+              "version": "[1.5.0, )",
+              "generatePathProperty": true
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true,
+              "generatePathProperty": true
+            },
+            "Thoth.Json": {
+              "target": "Package",
+              "version": "[5.0.0, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

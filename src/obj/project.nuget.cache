@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "dgSpecHash": "m5UL9DPAp6zcgSz+htZjAf+6ku5xt4eE6EFwyweKvHrRqCKErb4do87p2ZvmziKK2dtHncEmvOPz7oV/Z4mBOQ==",
+  "success": true,
+  "projectFilePath": "/home/joshua/Gitrepos/Template_Web_App/src/Template.fsproj",
+  "expectedPackageFiles": [
+    "/home/joshua/.nuget/packages/elmish/3.1.0/elmish.3.1.0.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fable.browser.blob/1.1.0/fable.browser.blob.1.1.0.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fable.browser.dom/2.0.1/fable.browser.dom.2.0.1.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fable.browser.event/1.2.1/fable.browser.event.1.2.1.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fable.browser.webstorage/1.0.0/fable.browser.webstorage.1.0.0.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fable.core/3.1.5/fable.core.3.1.5.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fable.elmish/3.0.0/fable.elmish.3.0.0.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fable.elmish.browser/3.0.4/fable.elmish.browser.3.0.4.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fable.elmish.react/3.0.1/fable.elmish.react.3.0.1.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fable.import.browser/1.4.0/fable.import.browser.1.4.0.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fable.react/7.0.1/fable.react.7.0.1.nupkg.sha512",
+    "/home/joshua/.nuget/packages/feliz/1.5.0/feliz.1.5.0.nupkg.sha512",
+    "/home/joshua/.nuget/packages/fsharp.core/4.7.2/fsharp.core.4.7.2.nupkg.sha512",
+    "/home/joshua/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/home/joshua/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512",
+    "/home/joshua/.nuget/packages/thoth.json/5.0.0/thoth.json.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
