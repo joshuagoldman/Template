@@ -6,7 +6,6 @@ open Fable.Import
 open System
 open Types
 open Global.Types
-open Feliz
 
 let standardPositions = {
         Popup.Types.PosX = 250.0
@@ -57,7 +56,7 @@ let checkingProcessPopupMsg positions msg =
     (msg,positions) |>
     (
         Popup.Types.PopupStyle.Has_No_Alternatives >>
-        Main.Types.Popup_Msg 
+        Main.Types.Popup_Msg
     )
 
 let killPopupMsg =
@@ -84,12 +83,12 @@ let write2File ( dispatch : Types.Msg -> unit ) content popupPosition = async {
             checkingProcessPopupMsg popupPosition
         )
 
-    let path_2_executable = "cd server;scripts/WriteFile"
-    let download_rate = "3"
+    let path_2_executable = "cd server;cd ../RCO_Scripts;dotnet run WriteFile.dll"
+    let download_rate = "1"
 
-    let shellcommands = 
+    let shellcommands =
         String.Format (
-            "{0};{1};{2}",
+            "shellCommand={0} {1} {2}",
             path_2_executable,
             download_rate,
             content
@@ -104,39 +103,43 @@ let write2File ( dispatch : Types.Msg -> unit ) content popupPosition = async {
 
             let xhr = Browser.XMLHttpRequest.Create()
             xhr.``open``(method = "POST", url = "http://localhost:3001/shellcommand")
-            xhr.timeout <- 10000.0
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+            xhr.timeout <- 120000.0
 
-            let socketResponse = NetSocket.connect "localhost" 300
-    
+            let socketResponse = ProgressSocket.connect "http://localhost:8085/api/SaveRCOList"
+
             match socketResponse.ErrorMessage with
             | None  ->
                 socketResponse.Socket.Value
-                |> NetSocket.listen (fun scktMsg ->
+                |> ProgressSocket.listen (fun scktMsg ->
                     let eventResult = (scktMsg :?> string)
 
-                    match eventResult.ToLower().Contains("Finished") with
-                    | true ->
-                        let msg = "loading file (" + eventResult + "% loaded)"
+                    let msg =
+                        String.Format(
+                            "loading file {0}% loaded)",
+                            eventResult
+                        )
+                    let popupInfoStr =
+                        eventResult |>
+                        (
+                            float >>
+                            Popup.View.getPopupMsgProgress msg >>
+                            checkingProcessPopupMsg popupPosition >>
+                            dispatch
+                        )
 
-                        let popupInfoStr =
-                            eventResult |>
-                            (
-                                float >>
-                                Popup.View.getPopupMsgProgress msg >>
-                                checkingProcessPopupMsg popupPosition >>
-                                dispatch
-                            )
+                    popupInfoStr
+                    ) "message"
+                |> ProgressSocket.listen (fun scktMsg ->
+                    let eventResult = (scktMsg :?> string)
 
-                        popupInfoStr
-                    | _ ->
-                        resolve
-                            {
-                                Status = 404
-                                Msg = "Finished!"
-                            }
-                        
-                            
-                    )
+                    resolve
+                        {
+                            Status = 404
+                            Msg = eventResult
+                        }
+
+                    ) "finished"
                 |> ignore
 
             | Some error ->
@@ -157,7 +160,7 @@ let write2File ( dispatch : Types.Msg -> unit ) content popupPosition = async {
                         Msg = error
                     }
 
-            xhr.send(fData) |> fun  _ -> ()
+            xhr.send(shellcommands) |> fun  _ -> ()
 
     let! response = request
 
@@ -166,6 +169,6 @@ let write2File ( dispatch : Types.Msg -> unit ) content popupPosition = async {
                             killPopupMsg
                             popupPosition
                             response.Msg
-                        
+
     popup_msg |> dispatch
 }

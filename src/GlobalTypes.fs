@@ -13,7 +13,7 @@ type Loading_Popup_Options =
     | Progress_Popup of float
     | No_Loading_Popup_Type
 
-let sleepAsync time = async {
+let sleepAsync ( time : int ) = async {
     do! Async.Sleep time
 }
 

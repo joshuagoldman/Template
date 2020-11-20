@@ -7,7 +7,7 @@
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/home/joshua/.nuget/packages/</NuGetPackageRoot>
     <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/home/joshua/.nuget/packages/</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">5.7.0</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">5.8.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <SourceRoot Include="$([MSBuild]::EnsureTrailingSlash($(NuGetPackageFolders)))" />
@@ -16,14 +16,15 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">/home/joshua/.nuget/packages/fsharp.core/4.7.2</PkgFSharp_Core>
+    <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">/home/joshua/.nuget/packages/fsharp.core/5.0.0</PkgFSharp_Core>
     <PkgThoth_Json Condition=" '$(PkgThoth_Json)' == '' ">/home/joshua/.nuget/packages/thoth.json/5.0.0</PkgThoth_Json>
-    <PkgNETStandard_Library Condition=" '$(PkgNETStandard_Library)' == '' ">/home/joshua/.nuget/packages/netstandard.library/2.0.3</PkgNETStandard_Library>
     <PkgFable_React Condition=" '$(PkgFable_React)' == '' ">/home/joshua/.nuget/packages/fable.react/7.0.1</PkgFable_React>
     <PkgFeliz Condition=" '$(PkgFeliz)' == '' ">/home/joshua/.nuget/packages/feliz/1.5.0</PkgFeliz>
     <PkgFable_Import_Browser Condition=" '$(PkgFable_Import_Browser)' == '' ">/home/joshua/.nuget/packages/fable.import.browser/1.4.0</PkgFable_Import_Browser>
     <PkgFable_Elmish_React Condition=" '$(PkgFable_Elmish_React)' == '' ">/home/joshua/.nuget/packages/fable.elmish.react/3.0.1</PkgFable_Elmish_React>
     <PkgFable_Elmish_Browser Condition=" '$(PkgFable_Elmish_Browser)' == '' ">/home/joshua/.nuget/packages/fable.elmish.browser/3.0.4</PkgFable_Elmish_Browser>
+    <PkgFable_Compiler Condition=" '$(PkgFable_Compiler)' == '' ">/home/joshua/.nuget/packages/fable.compiler/1.3.18</PkgFable_Compiler>
+    <PkgElmish_Bridge_Client Condition=" '$(PkgElmish_Bridge_Client)' == '' ">/home/joshua/.nuget/packages/elmish.bridge.client/3.4.0</PkgElmish_Bridge_Client>
     <PkgElmish Condition=" '$(PkgElmish)' == '' ">/home/joshua/.nuget/packages/elmish/3.1.0</PkgElmish>
   </PropertyGroup>
 </Project>

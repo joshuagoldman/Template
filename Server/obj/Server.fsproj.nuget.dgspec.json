@@ -1,0 +1,91 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/joshua/Gitrepos/Template_Web_App/Server/Server.fsproj": {}
+  },
+  "projects": {
+    "/home/joshua/Gitrepos/Template_Web_App/Server/Server.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/joshua/Gitrepos/Template_Web_App/Server/Server.fsproj",
+        "projectName": "Server",
+        "projectPath": "/home/joshua/Gitrepos/Template_Web_App/Server/Server.fsproj",
+        "packagesPath": "/home/joshua/.nuget/packages/",
+        "outputPath": "/home/joshua/Gitrepos/Template_Web_App/Server/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/joshua/Gitrepos/Template_Web_App/NuGet.Config",
+          "/home/joshua/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "FSharp.Core": {
+              "target": "Package",
+              "version": "[5.0.0, )",
+              "generatePathProperty": true
+            },
+            "Saturn": {
+              "target": "Package",
+              "version": "[0.14.1, )",
+              "generatePathProperty": true
+            },
+            "Thoth.Json": {
+              "target": "Package",
+              "version": "[5.0.0, )",
+              "generatePathProperty": true
+            },
+            "Thoth.Json.Giraffe": {
+              "target": "Package",
+              "version": "[4.2.0, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.8, 3.1.8]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.linux-x64",
+              "version": "[3.1.9, 3.1.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -20,8 +20,8 @@ type IProgress =
     abstract remaining : string
 
 type [<AllowNullLiteral>] IWebsocket =
-    abstract addEventListener_message: listener: (IProgress -> unit) -> socketObj: IWebsocket -> IWebsocket
-    abstract emit: eventName: string -> message: obj -> socketObj: IWebsocket -> IWebsocket
+    abstract listen: listener: (IProgress -> unit) -> socketObj: IWebsocket -> IWebsocket
+    abstract send: eventName: string -> message: obj -> socketObj: IWebsocket -> IWebsocket
 
 type SocketResponse = {
     Socket : IWebsocket option
@@ -35,25 +35,13 @@ module ProgressSocket =
     let connect (url : string) : SocketResponse = jsNative
 
     [<Import("addEventListener", "./JsInterop/Socket.js")>] 
-    let addEventListener_message (handler: obj -> unit) (eventName: string) (socket: IWebsocket) : IWebsocket = jsNative
+    let listen (handler: obj -> unit) (eventName: string) (socket: IWebsocket) : IWebsocket = jsNative
 
     [<Import("disconnect", "./JsInterop/Socket.js")>] 
     let disconnect (socketObj: IWebsocket) : unit = jsNative
 
     [<Import("emit", "./JsInterop/Socket.js")>] 
-    let emit (eventName: string) (message: obj) (socketObj: IWebsocket) : IWebsocket = jsNative
-
-[<Erase>]
-module NetSocket =
-
-    [<Import("createSocket", "./JsInterop/NetSocket.js")>] 
-    let connect (url : string) (port : int) : SocketResponse = jsNative
-
-    [<Import("addEventListener", "./JsInterop/NetSocket.js")>] 
-    let listen (handler: obj -> unit) (socket: IWebsocket) : IWebsocket = jsNative
-
-    [<Import("emit", "./JsInterop/NetSocket.js")>] 
-    let emit (message: obj) (socketObj: IWebsocket) : IWebsocket = jsNative
+    let send (eventName: string) (message: obj) (socketObj: IWebsocket) : IWebsocket = jsNative
 
 module Cmd =
     let fromAsyncSeveral ( operation : Async<'msg[]> ) : Cmd<'msg> =

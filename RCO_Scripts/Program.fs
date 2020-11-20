@@ -8,7 +8,6 @@ open System.Text
 
 type File_Info = {
     Stream : MemoryStream
-    File_Path : string
     Rate : int
 }
 
@@ -31,7 +30,7 @@ type Model = {
 
 let socket_write (msg : string ) =
     let serverIp = "localhost"
-    let port = 300
+    let port = 3000
     try
         let sckt = new TcpClient()
         sckt.Connect(serverIp, port)
@@ -54,7 +53,7 @@ type Variant =
     | Diagonal
 
 let address_regex = new Regex(".*?(?=\s)")
-let content_regex = new Regex("(?<=\s+.*?\s.*?\s)(.|\n)*")
+let content_regex = new Regex("(?<=\s+.*?)(.|\n)*")
 
 let generateStreamFromString ( content : string ) =
     let stream = new MemoryStream()
@@ -75,15 +74,6 @@ let getMatches ( regex : Regex ) str =
             )
 
     result
-
-let readLines =
-    let mutable lines = String.Empty
-    let mutable line = Console.ReadLine()
-    while line.Length <> 0 do
-        lines <- lines + line + "\r\n"
-        line <- Console.ReadLine()
-
-    lines
 
 let writeProgress variant (prog : int) = 
     let mutable output = ""
@@ -127,63 +117,56 @@ let writeProgress variant (prog : int) =
 let rec update ( model : Model ) ( msg : Msg )  =
     match msg with
     | Initialize ->
-        let info_all = readLines
-
-        let address =
-            info_all
-            |> getMatches address_regex
-            |> Seq.item 1
+        let allInfo =
+            Environment.GetCommandLineArgs()
 
         let rate =
-            info_all
-            |> getMatches address_regex
-            |> Seq.item 3
+            allInfo
+            |> Array.item 2
 
-        let content = content_regex.Match(info_all).Value
+        let content = 
+            allInfo
+            |> Array.skip 3
+            |> String.concat " "
 
-        match address.Length with
+        match content.Length with
         | 0 -> 
             Console.ForegroundColor <- ConsoleColor.Red
-            Console.WriteLine("Invalid path!")
+            Console.WriteLine("No content could be obtained!")
         | _ -> 
-            match content.Length with
+            match rate.Length with
             | 0 -> 
                 Console.ForegroundColor <- ConsoleColor.Red
-                Console.WriteLine("No content could be obtained!")
-            | _ -> 
-                match rate.Length with
-                | 0 -> 
-                    Console.ForegroundColor <- ConsoleColor.Red
-                    Console.WriteLine ("No byte rate given. Example")
-                    Console.WriteLine("1000")
-                | _ ->
-                    let mutable rate_int = 0
-                    let rate_span = new ReadOnlySpan<char>(rate |> Seq.toArray) 
-                    if Int32.TryParse(rate_span, &rate_int)
-                    then
-                        let writeStream = 
-                            content
-                            |> generateStreamFromString
+                Console.WriteLine ("No byte rate given. Example")
+                Console.WriteLine("1000")
+            | _ ->
+                let mutable rate_int = 0
+                let rate_span = new ReadOnlySpan<char>(rate |> Seq.toArray) 
+                if Int32.TryParse(rate_span, &rate_int)
+                then
+                    let writeStream = 
+                        content
+                        |> generateStreamFromString
 
-                        let info = {
-                            Stream = writeStream
-                            File_Path = address
-                            Rate = rate_int
-                        }
+                    let info = {
+                        Stream = writeStream
+                        Rate = rate_int
+                    }
 
-                        let newModel = { model with Info = info |> Fetched}
+                    let newModel = { model with Info = info |> Fetched}
 
-                        Write_To_File
-                        |> update newModel
-                    else
-                       Console.ForegroundColor <- ConsoleColor.Red
-                       Console.WriteLine ("Couldn't convert rate. Example")
-                       Console.WriteLine("3") 
+                    Write_To_File
+                    |> update newModel
+                else
+                   Console.ForegroundColor <- ConsoleColor.Red
+                   Console.WriteLine ("Couldn't convert rate. Example")
+                   Console.WriteLine("3") 
 
     | Write_To_File ->
         match model.Info with
         | Fetched info ->
-            let fsOut = new FileStream(info.File_Path, FileMode.OpenOrCreate)
+            let fsOut = new FileStream("Test.txt", FileMode.Create)
+
             let bt =
                 [|0..info.Rate|]
                 |> Array.map (fun _ -> 1048756 |> byte)
@@ -204,6 +187,7 @@ let rec update ( model : Model ) ( msg : Msg )  =
                 
                 percentage
                 |> string
+                |> fun str -> $"@message:{str}"
                 |> socket_write
 
                 percentage
@@ -212,11 +196,21 @@ let rec update ( model : Model ) ( msg : Msg )  =
 
                 readByte <- info.Stream.Read(bt, 0, bt.Length)
 
+            "finished!"
+            |> fun str -> $"@finished:{str}"
+            |> socket_write
+
+            fsOut.Close()
+
             Console.ResetColor()
 
         | _ -> 
             Console.ForegroundColor <- ConsoleColor.Red
             Console.WriteLine("No file info fetched")
+
+            "No file info fetched"
+            |> fun str -> $"@finished:{str}"
+            |> socket_write
 
     Console.ResetColor()
         
@@ -226,3 +220,4 @@ let init = {
 
 [<EntryPoint>]
 update init Initialize
+Console.WriteLine ""

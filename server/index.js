@@ -5,15 +5,14 @@ var cors = require('cors');
 const PORT = process.env.PORT || 3001;
 var socket  = require('socket.io');
 var shell = require('shelljs');
-var net = require('net')
-var regex = require('../src/JsInterop/Regex')
+var net = require('net');
+var clientSocket = require('socket.io-client');
 
 const app = express();
 app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded(({extended:true})));
 app.use(bodyParser.json());
-app.use(fileUpload());
 app.use('/files', express.static(__dirname + '/../public'))
 app.use(bodyParser.json({limit: '900mb'}));
 app.use(bodyParser.urlencoded({limit: '900mb', extended: true}));
@@ -22,27 +21,37 @@ var server = app.listen(PORT, () => {
     console.log( `Server listening on port ${PORT}...`);
 });
 
-net.createServer(socket => {
-    socket.on('data', data => {
-        let msg = data.toString()
-
-        console.log(msg);
-    })
-})
-
-net.listen(300);
-
 var io = socket(server);
+var newClient = clientSocket.connect('http://localhost:3001');
+
+let netServer = net.createServer(socket => {
+    socket.on('data', data => {
+        let msg = data.toString();
+
+        newClient.emit('3000', msg);
+    });
+});
+
+
+netServer.listen(3000);
+console.log("Connected to port 3000!");
 
 io.sockets.on(`connection`, (sckt) => {
-    sckt.on('message',(msgObj) =>{
-        sckt.broadcast.emit('message', msgObj);
-    })
-
-    sckt.on('finished',(msgObj) =>{
-        sckt.broadcast.emit('finished', msgObj);
-    })
+    sckt.on('3000', (msgObj) => {
+        if(msgObj.includes("@message:")){
+            var clean_msg = msgObj.replace('@message:','');
+            sckt.broadcast.emit('message', clean_msg);
+        }
+        else if(msgObj.includes("@finished:")){
+            var clean_msg = msgObj.replace('@finished:','');
+            sckt.broadcast.emit('finished', clean_msg);
+        }
+        else console.log("No socket info type found!");
+        
+        console.log(msgObj);
+    });
 });
+
 
 // --------------------------------------------------------------------------------------------------------------
 // Shell commands

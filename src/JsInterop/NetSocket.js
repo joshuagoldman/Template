@@ -1,11 +1,9 @@
-import * as net from 'net';
+import * as io from 'socket.io-client';
 
-export function createSocket(ip, port) {
+export function createSocket(uri) {
     try{
-        var client = new net.Socket();
-        client.connect(port, ip, function() {
-            console.log('Connected');
-        });
+
+        var socket = io.connect(uri);
 
         return {ErrorMessage: null, Socket: socket};
     }
@@ -17,7 +15,7 @@ export function createSocket(ip, port) {
 export function addEventListener(handler, socketObj) {
     try{
  
-        client.on('data', function(data) {
+        socketObj.on('data', function(data) {
             handler(data);
         });
         return socketObj;

@@ -39,8 +39,15 @@ let update msg (model:Model) : Model * GlobalMsg * Cmd<Msg> =
         let new_model = Logic.contentChanged model cntnt
 
         new_model, Global.Types.MsgNone, []
-    | Write_To_File dispatch ->
-        Logic.write2File
+    | Write_To_File (dispatch, positions) ->
+        match model.CurrContent with
+        | Yes_Defined cntnt ->
+            Logic.write2File dispatch cntnt positions
+            |> Async.StartImmediate
+            
+            model, Global.Types.MsgNone, []
+        | _ ->
+            model, Global.Types.MsgNone, []
         
     
 
